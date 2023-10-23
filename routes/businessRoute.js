@@ -6,6 +6,7 @@ import {
   deleteCardController,
   getBusinessCardController,
   getSingleBusinessCardController,
+  searchCardController,
   updateBusinessCardController,
 } from "../controllers/businessCardController.js";
 import formidable from "express-formidable";
@@ -38,5 +39,8 @@ router.get("/card-photo/:cid", cardPhotoController);
 
 //delete card
 router.delete("/delete-card/:cid", deleteCardController);
+
+//search route
+router.get("/search/:keyword", searchCardController);
 
 export default router;

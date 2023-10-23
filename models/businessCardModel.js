@@ -6,6 +6,22 @@ const businessCardSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    companyName: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
+    businessNature: {
+      type: String,
+      required: true,
+    },
+    interest: {
+      type: String,
+      required: true,
+    },
     slug: {
       type: String,
       required: true,

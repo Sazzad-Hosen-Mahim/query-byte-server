@@ -4,13 +4,33 @@ import fs from "fs";
 
 export const createBusinessCardController = async (req, res) => {
   try {
-    const { name, slug, email, phone, address, description, user } = req.fields;
+    const {
+      name,
+      companyName,
+      country,
+      businessNature,
+      interest,
+      slug,
+      email,
+      phone,
+      address,
+      description,
+      user,
+    } = req.fields;
     const { photo } = req.files;
 
     //validation
     switch (true) {
       case !name:
         return res.status(500).send({ error: "Name is required" });
+      case !companyName:
+        return res.status(500).send({ error: "Company Name is required" });
+      case !country:
+        return res.status(500).send({ error: "Country is required" });
+      case !businessNature:
+        return res.status(500).send({ error: "Business Nature is required" });
+      case !interest:
+        return res.status(500).send({ error: "Interested Field is required" });
       case !email:
         return res.status(500).send({ error: "Email is required" });
       case !phone:
@@ -137,13 +157,33 @@ export const deleteCardController = async (req, res) => {
 //update controller
 export const updateBusinessCardController = async (req, res) => {
   try {
-    const { name, slug, email, phone, address, description, user } = req.fields;
+    const {
+      name,
+      companyName,
+      country,
+      businessNature,
+      interest,
+      slug,
+      email,
+      phone,
+      address,
+      description,
+      user,
+    } = req.fields;
     const { photo } = req.files;
 
     //validation
     switch (true) {
       case !name:
         return res.status(500).send({ error: "Name is required" });
+      case !companyName:
+        return res.status(500).send({ error: "Company Name is required" });
+      case !country:
+        return res.status(500).send({ error: "Country is required" });
+      case !businessNature:
+        return res.status(500).send({ error: "Business Nature is required" });
+      case !interest:
+        return res.status(500).send({ error: "Interested Field is required" });
       case !email:
         return res.status(500).send({ error: "Email is required" });
       case !phone:
@@ -179,6 +219,32 @@ export const updateBusinessCardController = async (req, res) => {
       success: false,
       error,
       message: "Error in updating business card",
+    });
+  }
+};
+
+//search controller
+export const searchCardController = async (req, res) => {
+  try {
+    const { keyword } = req.params;
+    const results = await businessCardModel
+      .find({
+        $or: [
+          { name: { $regex: keyword, $options: "i" } },
+          { companyName: { $regex: keyword, $options: "i" } },
+          { country: { $regex: keyword, $options: "i" } },
+          { businessNature: { $regex: keyword, $options: "i" } },
+          { interest: { $regex: keyword, $options: "i" } },
+        ],
+      })
+      .select("-photo");
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in search api",
+      error,
     });
   }
 };
