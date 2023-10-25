@@ -76,7 +76,6 @@ export const getBusinessCardController = async (req, res) => {
       .find({})
       .populate("user")
       .select("-photo")
-      .limit(12)
       .sort({ createdAt: -1 });
     res.status(200).send({
       success: true,
