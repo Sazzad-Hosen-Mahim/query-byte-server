@@ -6,9 +6,10 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
+    "build": "node index.js",
     "start-dev": "nodemon index.js",
     "client": "npm start --prefix ../query-byte-client",
-    "dev": "concurrently \"npm run start-dev\" \"npm run client\""
+    "dev": "concurrently \"npm run start\" \"npm run client\""
   },
   "keywords": [],
   "author": "",

@@ -5,6 +5,8 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoute.js";
 import businessRoute from "./routes/businessRoute.js";
+
+import path from "path";
 //configure env
 dotenv.config();
 
@@ -19,6 +21,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
+// app.use(express.static(path.join(__dirname, "../query-byte-client/build")));
 
 //routes
 app.use("/api/v1/auth", authRoutes);
@@ -26,8 +29,9 @@ app.use("/api/v1/businessCard", businessRoute);
 
 //REST api
 
-app.get("/", async (req, res) => {
-  res.send("<h1>Welcome to query byte</h1>");
+app.use("*", function (req, res) {
+  res.send("Hello");
+  // res.sendFile(path.join(__dirname, "../query-byte-client/build/index.html"));
 });
 
 app.listen(port, () => {
